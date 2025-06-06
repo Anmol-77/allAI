@@ -4,7 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { ChevronLeft, MessageSquare, Users, Award, ExternalLink } from "lucide-react";
+import { ChevronLeft,PlusCircle, MessageSquare, Users, Award, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -16,34 +16,29 @@ interface SidebarItemProps {
   variant?: "default" | "warning" | "info" | "success";
 }
 
-const SidebarItem = ({
-  icon,
-  title,
-  preview,
-  active = false,
-  variant = "default"
-}: SidebarItemProps) => {
-  // Map variants to background colors
-  const variantClasses = {
-    default: "bg-orange-500",
-    warning: "bg-yellow-500",
-    info: "bg-blue-500",
-    success: "bg-green-500"
-  };
+  const SidebarItem = ({
+    icon,
+    title,
+    preview,
+    active = false,
+    variant = "default"
+  }: SidebarItemProps) => {
+    // Map variants to background colors
 
-  return (
-    <div className={`flex items-start gap-3 p-3 rounded-md hover:bg-zinc-800/50 cursor-pointer ${active ? 'bg-zinc-800/70' : ''}`}>
-      <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${variantClasses[variant]}`}>
-        {icon}
+
+    return (
+      <div className={`flex items-center gap-3 p-3 rounded-md hover:bg-zinc-800/50 cursor-pointer ${active ? 'bg-zinc-800/70' : ''}`}>
+        <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full`}>
+          {icon}
+        </div>
+        <div className="flex flex-col overflow-hidden justify-center">
+          <p className="text-sm font-medium text-zinc-100 text-center">{title}</p>
+          {preview && (
+            <p className="text-xs text-zinc-400 truncate text-center">{preview}</p>
+          )}
+        </div>
       </div>
-      <div className="flex flex-col overflow-hidden">
-        <p className="text-sm font-medium text-zinc-100">{title}</p>
-        {preview && (
-          <p className="text-xs text-zinc-400 truncate">{preview}</p>
-        )}
-      </div>
-    </div>
-  );
+    );
 };
 
 export function Sidebar() {
@@ -75,23 +70,10 @@ export function Sidebar() {
           <div className="px-3 py-2">
             <nav className="space-y-1">
               <Link href="#">
-                <SidebarItem
-                  icon={<MessageSquare className="h-4 w-4 text-white" />}
-                  title="Daily Sparks"
-                  active
-                />
-              </Link>
-              <Link href="#">
-                <SidebarItem
-                  icon={<Award className="h-4 w-4 text-white" />}
-                  title="Leaderboard"
-                />
-              </Link>
-              <Link href="#">
-                <SidebarItem
-                  icon={<MessageSquare className="h-4 w-4 text-white" />}
-                  title="Chat"
-                />
+              <SidebarItem                    
+                icon={<PlusCircle className="h-4 w-4 text-white" />}                   
+                title="Chat"                 
+              />
               </Link>
             </nav>
           </div>
@@ -107,98 +89,7 @@ export function Sidebar() {
 
       {/* Scrollable chat list */}
       <ScrollArea className="flex-1">
-        {collapsed ? (
-          <div className="flex flex-col items-center gap-3 py-3">
-            {[
-              { icon: <MessageSquare className="h-4 w-4 text-white" />, variant: "success" },
-              { icon: <MessageSquare className="h-4 w-4 text-white" />, variant: "success" },
-              { icon: <MessageSquare className="h-4 w-4 text-white" />, variant: "warning" },
-              { icon: <MessageSquare className="h-4 w-4 text-white" />, variant: "warning" },
-              { icon: <MessageSquare className="h-4 w-4 text-white" />, variant: "default" },
-              { icon: <MessageSquare className="h-4 w-4 text-white" />, variant: "default" },
-              { icon: <MessageSquare className="h-4 w-4 text-white" />, variant: "info" },
-              { icon: <MessageSquare className="h-4 w-4 text-white" />, variant: "info" },
-              { icon: <MessageSquare className="h-4 w-4 text-white" />, variant: "success" },
-              { icon: <MessageSquare className="h-4 w-4 text-white" />, variant: "default" }
-            ].map((item, i) => (
-              <div
-                key={`collapsed-item-${i}`}
-                className={`w-8 h-8 flex items-center justify-center rounded-full ${
-                  item.variant === "default" ? "bg-orange-500" :
-                  item.variant === "warning" ? "bg-yellow-500" :
-                  item.variant === "info" ? "bg-blue-500" : "bg-green-500"
-                }`}
-              >
-                {item.icon}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="px-3 py-2">
-            <div className="space-y-1">
-              <SidebarItem
-                icon={<MessageSquare className="h-4 w-4 text-white" />}
-                title="Request for Solution"
-                preview="To find the matrices I(A∨) and..."
-                variant="success"
-              />
-              <SidebarItem
-                icon={<MessageSquare className="h-4 w-4 text-white" />}
-                title="Centrally Symmetric Distribution"
-                preview="The statement you're referring..."
-                variant="success"
-              />
-              <SidebarItem
-                icon={<MessageSquare className="h-4 w-4 text-white" />}
-                title="Podcast Workflow Development"
-                preview="I'm drawn to working with you..."
-                variant="warning"
-              />
-              <SidebarItem
-                icon={<MessageSquare className="h-4 w-4 text-white" />}
-                title="MongoDB Validation Error"
-                preview="I rated this schema 5/7 because..."
-                variant="warning"
-              />
-              <SidebarItem
-                icon={<MessageSquare className="h-4 w-4 text-white" />}
-                title="HTML CSS JavaScript Separation"
-                preview="There are a few issues in your..."
-                variant="default"
-              />
-              <SidebarItem
-                icon={<MessageSquare className="h-4 w-4 text-white" />}
-                title="Custom Unpickling for Torch"
-                preview="Yes, there are a few potential..."
-                variant="default"
-              />
-              <SidebarItem
-                icon={<MessageSquare className="h-4 w-4 text-white" />}
-                title="Custom Unpickling Module"
-                preview="import torch import pickle from..."
-                variant="info"
-              />
-              <SidebarItem
-                icon={<MessageSquare className="h-4 w-4 text-white" />}
-                title="Expertise and Expectations"
-                preview="This is a strong implementation..."
-                variant="info"
-              />
-              <SidebarItem
-                icon={<MessageSquare className="h-4 w-4 text-white" />}
-                title="String Hashing Overview"
-                preview="Yes, the individual hash values..."
-                variant="success"
-              />
-              <SidebarItem
-                icon={<MessageSquare className="h-4 w-4 text-white" />}
-                title="Password Management System"
-                preview="Hint Validity and Relevance Prop..."
-                variant="default"
-              />
-            </div>
-          </div>
-        )}
+                
       </ScrollArea>
     </div>
   );

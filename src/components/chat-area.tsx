@@ -151,9 +151,9 @@ export function ChatArea() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-zinc-900 text-white">
+    <div className="flex flex-col h-full bg-black text-white">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-zinc-800 p-4">
+      <div className="flex items-center justify-between  p-4">
         <div>
           <h2 className="text-xl font-semibold">Chat</h2>
         </div>
@@ -205,7 +205,7 @@ export function ChatArea() {
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
                 <div className={`flex ${message.sender === "user" ? "flex-row-reverse" : "flex-row"} gap-3 max-w-[80%]`}>
-                  <Avatar className={`h-8 w-8 ${message.sender === "user" ? "bg-blue-600" : "bg-rose-600"} flex-shrink-0`}>
+                  <Avatar className={`h-8 w-8 ${message.sender === "user" ? "bg-blue-600" : "bg-white"} flex-shrink-0`}>
                     {message.sender === "user" ? (
                       <span></span>
                     ) : (
@@ -213,7 +213,7 @@ export function ChatArea() {
                     )}
                   </Avatar>
 
-                  <div className={`rounded-lg py-3 px-4 ${message.sender === "user" ? "bg-blue-600" : "bg-zinc-800"}`}>
+                  <div className={`rounded-lg py-3 px-4 ${message.sender === "user" ? "bg-blue-600" : "bg-black-800"}`}>
                     {message.sender === "ai" ? (
                       <div className="prose prose-sm max-w-none">
                         <ReactMarkdown 
@@ -235,10 +235,10 @@ export function ChatArea() {
 
       {/* Model selector */}
       {showModelSelector && (
-        <div className="border-t border-zinc-800 bg-zinc-900">
-          <div className="p-2">
+        <div className="border border-zinc-800 bg-zinc-900 m-4 ">
+          <div className="p-5">
             <p className="text-xs text-zinc-500 px-2 py-1">Explore models</p>
-            <div className="grid grid-cols-1 max-h-[280px] overflow-y-auto">
+            <div className="grid grid-cols-1 max-h-[280px] overflow-y-auto w-1/4">
               {modelOptions.map((model) => (
                 <Button
                   key={model.id}
@@ -266,7 +266,7 @@ export function ChatArea() {
       )}
 
       {/* Input area */}
-      <div className="border-t border-zinc-800 p-4">
+      <div className="p-4">
         <div className="relative">
           <Card className="bg-zinc-800 border-zinc-700">
             <div className="flex items-end">
